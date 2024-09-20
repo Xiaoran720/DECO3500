@@ -3,115 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Meeting Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Video Conference App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+
 </head>
 <body>
-    <div class="wrapper">
-        <!-- Top Participant Section -->
-        <section class="participant-bar">
-            <div class="participant-frame">
-                <div class="avatar">
-                    <img src="#" alt="Participant 1 Avatar">
+    <div class="video-conference">
+        <div class="side-menu">
+            <button onclick="toggleModal('questionModal')"><i class="fas fa-question-circle"></i> Post Question</button>
+            <button onclick="toggleModal('recordModal')"><i class="fas fa-file-alt"></i> View Record</button>
+            <button onclick="toggleCamera()"><i class="fas fa-video"></i> Turn Off Camera</button>
+            <button onclick="toggleMic()"><i class="fas fa-microphone"></i> Mute Mic</button>
+            <div class="chatbox">
+                <h3>Chat</h3>
+                <div class="chat-messages">
+                    <p>User1: Hello!</p>
+                    <!-- 这里将动态生成消息 -->
                 </div>
-                <div class="feedback-icon">
-                    <div class="icon-group"> 
-                        <i class="fas fa-heart"></i>
-                        <i class="fas fa-smile"></i>
-                        <i class="fas fa-thumbs-up"></i>
+                <textarea placeholder="Type your message..."></textarea>
+                <button class="btn accent-btn" onclick="sendMessage()">Send</button>
+            </div>
+            
+        </div>
+        <div class="main-content">
+            <div class="participant-videos">
+                <div class="participant-video" id="participant1">
+                    <div class="avatar">U</div>
+                    <span class="name">User 1</span>
+                    <div class="icons">
+                        <span onclick="flyIcon('❤️', document.getElementById('participant1'))">❤️</span>
+                        <span onclick="flyIcon('👍', document.getElementById('participant1'))">👍</span>
+                        <span>🔊</span>
                     </div>
-                    <i class="fas fa-bullhorn last-icon"></i>
                 </div>
+                
+                
+                <div class="participant-video" id="participant2">
+                    <div class="avatar">U</div>
+                    <span class="name">User 2</span>
+                    <div class="icons">
+                        <span onclick="flyIcon('❤️', document.getElementById('participant2'))">❤️</span>
+                        <span onclick="flyIcon('👍', document.getElementById('participant2'))">👍</span>
+                        <span>🔊</span>
+                    </div>
+                </div>
+                
+                
+                <div class="participant-video" id="participant3">
+                    <div class="avatar">U</div>
+                    <span class="name">User 3</span>
+                    <div class="icons">
+                        <span onclick="flyIcon('❤️', document.getElementById('participant3'))">❤️</span>
+                        <span onclick="flyIcon('👍', document.getElementById('participant3'))">👍</span>
+                        <span>🔊</span>
+                    </div>
+                </div>
+                
+                
+                <div class="participant-video" id="participant4">
+                    <div class="avatar">U</div>
+                    <span class="name">User 4</span>
+                    <div class="icons">
+                        <span onclick="flyIcon('❤️', document.getElementById('participant4'))">❤️</span>
+                        <span onclick="flyIcon('👍', document.getElementById('participant4'))">👍</span>
+                        <span>🔊</span>
+                    </div>
+                </div>
+                
+                
+                <div class="participant-video" id="participant5">
+                    <div class="avatar">U</div>
+                    <span class="name">User 5</span>
+                    <div class="icons">
+                        <span onclick="flyIcon('❤️', document.getElementById('participant5'))">❤️</span>
+                        <span onclick="flyIcon('👍', document.getElementById('participant5'))">👍</span>
+                        <span>🔊</span>
+                    </div>
+                </div>
+                
+                
             </div>
-            <div class="participant-frame">
-                <div class="avatar">
-                    <img src="#" alt="Participant 2 Avatar">
-                </div>
-                <div class="settings-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-            </div>
-            <div class="participant-frame">
-                <div class="avatar">
-                    <img src="#" alt="Participant 3 Avatar">
-                </div>
-                <div class="settings-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-            </div>
-            <div class="participant-frame">
-                <div class="avatar">
-                    <img src="#" alt="Participant 4 Avatar">
-                </div>
-                <div class="settings-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-            </div>
-        </section>
+            <div class="whiteboard">
+                <span>Whiteboard Area</span>
+                <div id="startBox" class="start-box"></div> <!-- 红色框的位置 -->
 
-        <!-- Main Content -->
-        <section class="main-content">
-            <!-- Left Section: What you missed -->
-            <div class="missed-section">
-                <h2>What you missed</h2>
-                <div class="tab-header">
-                    <button class="tab-button active" onclick="openTab(event, 'speech')">Speech Content</button>
-                    <button class="tab-button" onclick="openTab(event, 'whiteboard')">Whiteboard</button>
-                    <button class="tab-button" onclick="openTab(event, 'quiz')">Quiz</button>
-                    <button class="tab-button" onclick="openTab(event, 'chat')">Chat Box</button>
-                </div>
-
-                <div class="tab-content" id="speech">
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                    <p>A: Lorem ipsum dolor sit amet consectetur. Dolor vulputate enim scelerisque cursus.</p>
-                </div>
             </div>
-
-            <!-- Right Section: Summary -->
-            <div class="summary-section">
-                <h2>Summary</h2>
-                <div class="summary-content">
-                    <ul class="summary-list">
-                        <li>1. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>2. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>3. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>4. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>5. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>6. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>7. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>8. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>9. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>10. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                        <li>11. Lorem ipsum dolor sit amet consectetur. Nisl tristique eu enim vestibulum pellentesque.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bottom Action Section -->
-        <section class="action-section">
-            <div class="action-buttons">
-                <button class="btn">AI Assistance</button>
-                <button class="btn">Previous Q & A</button>
-                <button class="btn create">Create a Question</button>
-            </div>
-        </section>
+        </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <div id="questionModal" class="modal">
+        <div class="modal-content">
+            <h2>Post a Question</h2>
+            <textarea id="questionText" placeholder="Type your question here..."></textarea>
+            <button class="btn accent-btn" onclick="toggleModal('questionModal')">Submit Question</button>
+            <button class="btn accent-btn" onclick="toggleModal('questionModal')">Close</button>
+
+        </div>
+    </div>
+
+    <div id="recordModal" class="modal">
+        <div class="modal-content">
+            <h2>Meeting Record</h2>
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="changeTab(this, 'speechContent')">Speech Content</button>
+                <button class="tab-btn" onclick="changeTab(this, 'whiteboard')">Whiteboard</button>
+                <button class="tab-btn" onclick="changeTab(this, 'quiz')">Quiz</button>
+                <button class="tab-btn" onclick="changeTab(this, 'chatBox')">Chat Box</button>
+            </div>
+            <div id="speechContent" class="tab-content active">
+                <p>Speech content will appear here...</p>
+            </div>
+            <div id="whiteboard" class="tab-content">
+                <p>Whiteboard content will appear here...</p>
+            </div>
+            <div id="quiz" class="tab-content">
+                <p>Quiz content will appear here...</p>
+            </div>
+            <div id="chatBox" class="tab-content">
+                <p>Chat box content will appear here...</p>
+            </div>
+            <button onclick="toggleModal('recordModal')">Close</button>
+        </div>
+    </div>
+
+    
 </body>
 </html>
-
-
-
