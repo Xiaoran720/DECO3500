@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 const ParticipantVideo = ({ name }) => (
   <div className="w-48 h-48 bg-secondary rounded-lg border-2 border-accent flex flex-col items-center justify-center relative mb-4 shadow-lg">
-    <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center text-2xl font-bold text-white mb-2">
+    <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center text-2xl font-bold text-white mb-2 mr-10">
       {name[0]}
     </div>
-    <span className="text-sm font-semibold text-text">{name}</span>
+    <span className="text-sm font-semibold text-text mr-10">{name}</span>
     <div className="absolute right-0 top-0 bottom-0 w-10 bg-background bg-opacity-75 flex flex-col items-center justify-center space-y-3">
       <span className="cursor-pointer text-accent hover:text-primary transition-colors">❤️</span>
       <span className="cursor-pointer text-accent hover:text-primary transition-colors">👍</span>
