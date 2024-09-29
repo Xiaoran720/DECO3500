@@ -50,12 +50,20 @@ function sendMessage() {
     const message = messageBox.value.trim();
     if (message) {
         const chatMessages = document.querySelector('.chat-messages');
+
+        // 创建新消息元素，并为其添加类名 sent-message
         const newMessage = document.createElement('p');
         newMessage.textContent = 'You: ' + message;
+        newMessage.classList.add('sent-message', 'bounce-in'); // 发送消息添加 sent-message 类名和动画类名
+
         chatMessages.appendChild(newMessage);
-        messageBox.value = ''; // 清空输入框
+        messageBox.value = '';
+
+        // 移除动画类名以便于下次生成消息时重新播放动画
+        setTimeout(() => newMessage.classList.remove('bounce-in'), 1000);
     }
 }
+
 
 function flyIcon(icon, toElement) {
     const flyIcon = document.createElement('div');
