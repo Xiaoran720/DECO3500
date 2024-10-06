@@ -124,14 +124,11 @@ function thumbUpParticipant(fromElement, toParticipantId) {
 
 async function connectToSerial() {
     try {
-        // 请求用户选择一个串口
         const port = await navigator.serial.requestPort();
-        // 打开串口，设置波特率
         await port.open({ baudRate: 9600 });
 
         console.log('Connected to Serial Port');
 
-        // 读取串口数据
         await readFromSerial(port);
     } catch (error) {
         console.error('Connection failed:', error);
@@ -146,16 +143,14 @@ async function readFromSerial(port) {
         while (true) {
             const { value, done } = await reader.read();
             if (done) {
-                break; // 结束读取
+                break; 
             }
 
-            // 解析数据
             const distance = parseInt(decoder.decode(value), 10);
             console.log('Distance received:', distance);
-            
-            // 在这里处理距离数据
+       
             if (distance > 30) {
-                toggleModal('recordModal'); // 显示模态框
+                toggleModal('recordModal'); 
             }
         }
     } catch (error) {
