@@ -123,29 +123,45 @@ function thumbUpParticipant(fromElement, toParticipantId) {
 }
 
 async function connectToSerial() {
-    const port = await navigator.serial.requestPort(); 
-    await port.open({ baudRate: 9600 }); 
-    readFromSerial(port); 
-}
+    try {
+        // 请求用户选择一个串口
+        const port = await navigator.serial.requestPort();
+        // 打开串口，设置波特率
+        await port.open({ baudRate: 9600 });
 
-async function readFromSerial(port) {
-    const reader = port.readable.getReader();
-    while (true) {
-        const { value, done } = await reader.read();
-        if (done) {
-            reader.releaseLock();
-            break;
-        }
+        console.log('Connected to Serial Port');
 
-        const distance = parseInt(new TextDecoder().decode(value), 10);
-        console.log('Distance received:', distance);
-        if (distance > 30) {
-            toggleModal('recordModal'); 
-        }
+        // 读取串口数据
+        await readFromSerial(port);
+    } catch (error) {
+        console.error('Connection failed:', error);
     }
 }
 
-async function disconnectFromSerial(port) {
-    await port.close();
+async function readFromSerial(port) {
+    const decoder = new TextDecoder('utf-8');
+    const reader = port.readable.getReader();
+
+    try {
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) {
+                break; // 结束读取
+            }
+
+            // 解析数据
+            const distance = parseInt(decoder.decode(value), 10);
+            console.log('Distance received:', distance);
+            
+            // 在这里处理距离数据
+            if (distance > 30) {
+                toggleModal('recordModal'); // 显示模态框
+            }
+        }
+    } catch (error) {
+        console.error('Error reading from serial port:', error);
+    } finally {
+        reader.releaseLock();
+    }
 }
 
