@@ -122,3 +122,30 @@ function thumbUpParticipant(fromElement, toParticipantId) {
     flyIcon('👍', fromElement, toElement); // 飞行点赞图标
 }
 
+async function connectToSerial() {
+    const port = await navigator.serial.requestPort(); 
+    await port.open({ baudRate: 9600 }); 
+    readFromSerial(port); 
+}
+
+async function readFromSerial(port) {
+    const reader = port.readable.getReader();
+    while (true) {
+        const { value, done } = await reader.read();
+        if (done) {
+            reader.releaseLock();
+            break;
+        }
+
+        const distance = parseInt(new TextDecoder().decode(value), 10);
+        console.log('Distance received:', distance);
+        if (distance > 30) {
+            toggleModal('recordModal'); 
+        }
+    }
+}
+
+async function disconnectFromSerial(port) {
+    await port.close();
+}
+
