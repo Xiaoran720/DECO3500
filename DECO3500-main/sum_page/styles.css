@@ -1,0 +1,288 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.video-conference {
+    display: flex;
+    height: 100vh;
+}
+
+.side-menu {
+    width: 200px;
+    background-color: #FF7F50;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h3 {
+    text-align: center; /* 设置文本居中 */
+    font-family: 'Georgia', 'Times New Roman', Times, serif; /* 使用柔和的字体 */
+    font-weight: normal; /* 设置字体为正常粗细 */
+    color: #333; /* 设置文字颜色为深灰色 */
+}
+
+/* The following are the styles and dynamic effects of the message */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.1); /* 初始状态：很小 */
+        opacity: 0; /* 初始透明度 */
+    }
+    60% {
+        transform: scale(1.2); /* 放大至比正常状态稍大 */
+        opacity: 1; /* 完全可见 */
+    }
+    80% {
+        transform: scale(0.95); /* 缩小回接近正常状态 */
+    }
+    100% {
+        transform: scale(1); /* 恢复到正常大小 */
+    }
+}
+
+.bounce-in {
+    animation: bounceIn 0.6s ease-out; /* 应用弹性动画 */
+}
+
+.sent-message {
+    background-color: #FFA07A; /* 发送消息背景颜色 */
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 0;
+    max-width: 80%;
+    align-self: flex-end; /* 靠右对齐 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    transition: transform 0.2s ease-in-out; /* 添加平滑过渡效果 */
+}
+
+
+.side-menu button {
+    padding: 10px;
+    background-color: #e94200;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.3s ease, margin 0.3s ease;
+}
+
+.side-menu button:hover {
+    transform: scale(1.1); /* 鼠标悬浮时按钮放大 */
+    margin-bottom: 15px; /* 鼠标悬浮时增加底部外边距，将其他按钮向下挤开 */
+}
+
+
+.side-menu button i {
+    margin-right: 5px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.participant-videos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.participant-video {
+    width: 180px;
+    height: 180px;
+    background-color: #FFA07A;
+    border: 2px solid #FF4500;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #FF7F50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.icons {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.whiteboard {
+    flex: 1;
+    background-color: white;
+    border: 4px solid #FFA07A;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: var(--background);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%; 
+    height: 50%; 
+}
+
+.tab-buttons {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #FFA07A;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background-color: #FF4500;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #fc662b;
+    resize: none; /* 禁用 textarea 的大小调整 */
+    overflow-y: auto; /* 设置为自动滚动，当内容超出时启用垂直滚动条 */
+    box-sizing: border-box; /* 设置 box-sizing 为 border-box */
+}
+
+.chatbox {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-top: auto; /* 自动将 .chatbox 推到 .side-menu 的底部 */
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* chat-messages 样式 */
+.chat-messages {
+    background-color: white;
+    height: 100px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--secondary);
+}
+
+/* chatbox 内部元素样式 */
+.chatbox textarea {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid var(--secondary);
+}
+
+button {
+    width: 100%; /* 设置按钮宽度 */
+    padding: 10px;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 5px;
+    color: rgb(201, 60, 4);
+    cursor: pointer;
+    transition: transform 0.3s ease, margin 0.3s ease;
+}
+
+button:hover {
+    background-color: #FFA07A; /* 设置鼠标悬浮时的浅橙色 */
+    color: #333;
+}
+
+
+@keyframes fly-like {
+    0% {
+        transform: scale(0.5) translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5) translate(300px, -100px); /* 你可以调整这个值，使其飞向头像 */
+        opacity: 0;
+    }
+}
+
+.fly-animation {
+    position: absolute;
+    animation: fly-like 1s ease forwards;
+    pointer-events: none; /* 防止点击干扰动画 */
+}
+
+
+.start-box {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    bottom: 20px; /* 定位在页面底部，调整位置 */
+    right: 50px; /* 根据页面需要调整右侧位置 */
+    border: 2px solid #000;
+}
