@@ -21,14 +21,14 @@ function toggleCamera() {
     isCameraOn = !isCameraOn;
     const cameraButton = document.querySelector('.side-menu button:nth-child(3)');
     cameraButton.innerHTML = isCameraOn ? '<i class="fas fa-video"></i> Turn Off Camera' : '<i class="fas fa-video-slash"></i> Turn On Camera';
-    // 这里你可以添加实际控制摄像头的代码
+    // Camera code here
 }
 
 function toggleMic() {
     isMicOn = !isMicOn;
     const micButton = document.querySelector('.side-menu button:nth-child(4)');
     micButton.innerHTML = isMicOn ? '<i class="fas fa-microphone"></i> Mute Mic' : '<i class="fas fa-microphone-slash"></i> Unmute Mic';
-    // 这里你可以添加实际控制麦克风的代码
+    //mircophone code here
 }
 
 function submitQuestion() {
@@ -197,3 +197,23 @@ window.onload = function() {
     // Update user likes display
     updateUserLikes();
 };
+
+// These are scripts of leaving button
+
+function enterLeaveMode() {
+    toggleModal('leaveModeModal');
+}
+
+function exitLeaveMode() {
+    toggleModal('leaveModeModal');
+}
+
+function toggleModal(modalId) {
+    var modal = document.getElementById(modalId);
+    if (modal.style.display === "block") {
+        modal.style.display = "none";
+    } else {
+        modal.style.display = "block";
+    }
+}
+

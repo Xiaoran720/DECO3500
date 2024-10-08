@@ -150,5 +150,18 @@
     </div>
 
     <script src="index.js"></script>
+    
+    <div class="leave-mode">
+        <button onclick="enterLeaveMode()">Leave</button>
+    </div>
+    
+    <div id="leaveModeModal" class="modal" onclick="exitLeaveMode()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2>Leave Mode Activated</h2>
+            <p>You are now in Leave Mode. Click anywhere outside this window to exit Leave Mode.</p>
+        </div>
+    </div>
+    
+
 </body>
 </html>
