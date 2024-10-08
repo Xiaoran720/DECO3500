@@ -14,6 +14,7 @@
             <button onclick="toggleModal('recordModal')">View Record</button>
             <button onclick="toggleCamera()"><i class="fas fa-video"></i> Turn Off Camera</button>
             <button onclick="toggleMic()"><i class="fas fa-microphone"></i> Mute Mic</button>
+            <button onclick="window.location.href='shop.html'">Avatar Shop</button>
             <div class="chatbox">
                 <h3>Chat</h3>
                 <div class="chat-messages"></div>
@@ -25,7 +26,7 @@
         <div class="main-content">
             <div class="participant-videos">
                 <div class="participant-video" id="participant1">
-                    <div class="avatar">U</div>
+                    <div id="User1"></div>
                     <span class="name">User 1</span>
                     <div class="icons">
                         <button class="like-button" onclick="likeParticipant('participant1')">
@@ -36,12 +37,12 @@
                             <span class="thumbs-up-icon">👍</span>
                             <span class="thumbs-up-count">0</span>
                         </button>
-                        <span>🔊</span>
                     </div>
                 </div>
                 
+
                 <div class="participant-video" id="participant2">
-                    <div class="avatar">U</div>
+                    <div id="User1"></div>
                     <span class="name">User 2</span>
                     <div class="icons">
                         <button class="like-button" onclick="likeParticipant('participant2')">
@@ -52,12 +53,11 @@
                             <span class="thumbs-up-icon">👍</span>
                             <span class="thumbs-up-count">0</span>
                         </button>
-                        <span>🔊</span>
                     </div>
                 </div>
 
                 <div class="participant-video" id="participant3">
-                    <div class="avatar">U</div>
+                    <div id="User1"></div>
                     <span class="name">User 3</span>
                     <div class="icons">
                         <button class="like-button" onclick="likeParticipant('participant3')">
@@ -68,12 +68,26 @@
                             <span class="thumbs-up-icon">👍</span>
                             <span class="thumbs-up-count">0</span>
                         </button>
-                        <span>🔊</span>
+                    </div>
+                </div>
+
+                <div class="participant-video" id="participant3">
+                    <div id="User1"></div>
+                    <span class="name">User 3</span>
+                    <div class="icons">
+                        <button class="like-button" onclick="likeParticipant('participant3')">
+                            <span class="like-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                        <button class="thumbs-up-button" onclick="thumbUpParticipant('participant3')">
+                            <span class="thumbs-up-icon">👍</span>
+                            <span class="thumbs-up-count">0</span>
+                        </button>
                     </div>
                 </div>
 
                 <div class="participant-video" id="participant4">
-                    <div class="avatar">U</div>
+                    <div id="User1"></div>
                     <span class="name">User 4</span>
                     <div class="icons">
                         <button class="like-button" onclick="likeParticipant('participant4')">
@@ -84,11 +98,11 @@
                             <span class="thumbs-up-icon">👍</span>
                             <span class="thumbs-up-count">0</span>
                         </button>
-                        <span>🔊</span>
                     </div>
                 </div>
-                <div class="participant-video" id="participant5">
-                    <div class="avatar">U</div>
+
+                <div class="participant-video" id="participant4">
+                    <div id="User1"></div>
                     <span class="name">User 5</span>
                     <div class="icons">
                         <button class="like-button" onclick="likeParticipant('participant5')">
@@ -99,10 +113,8 @@
                             <span class="thumbs-up-icon">👍</span>
                             <span class="thumbs-up-count">0</span>
                         </button>
-                        <span>🔊</span>
                     </div>
                 </div>
-                
             </div>
 
             <div class="whiteboard">

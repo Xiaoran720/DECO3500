@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Shop</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .shop-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #FFA07A;
+        }
+        .user-info {
+            background-color: #FF7F50;
+            padding: 20px;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .shop-item {
+            background-color: white;
+            border: 2px solid #FF4500;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .shop-item img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #e94200;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #FF4500;
+        }
+        .back-button {
+            margin: 20px auto;
+            display: block;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="shop-container">
+        <div class="user-info">
+            <h2>Welcome, <span id="username">User</span>!</h2>
+            <p>Your current likes: <span id="userLikes">100</span></p>
+        </div>
+        <h1>Avatar Shop</h1>
+        <div class="item-grid">
+            <div class="shop-item">
+                <img src="hat.png" alt="Cool Hat">
+                <h3>Cool Hat</h3>
+                <p>50 likes</p>
+                <button onclick="purchaseItem(1)">Purchase</button>
+            </div>
+            <div class="shop-item">
+                <img src="sunglasses.png" alt="Sunglasses">
+                <h3>Sunglasses</h3>
+                <p>30 likes</p>
+                <button onclick="purchaseItem(2)">Purchase</button>
+            </div>
+            <div class="shop-item">
+                <img src="necklace.png" alt="Necklace">
+                <h3>Necklace</h3>
+                <p>40 likes</p>
+                <button onclick="purchaseItem(3)">Purchase</button>
+            </div>
+        </div>
+        <button class="back-button" onclick="window.location.href='index.html'">Back to Conference</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

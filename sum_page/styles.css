@@ -27,20 +27,10 @@ h3 {
 }
 
 @keyframes bounceIn {
-    0% {
-        transform: scale(0.1);
-        opacity: 0;
-    }
-    60% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-    80% {
-        transform: scale(0.95);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    80% { transform: scale(0.95); }
+    100% { transform: scale(1); }
 }
 
 .bounce-in {
@@ -109,7 +99,6 @@ h3 {
 .avatar {
     width: 80px;
     height: 80px;
-    background-color: #FF7F50;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -117,7 +106,26 @@ h3 {
     font-size: 24px;
     font-weight: bold;
     color: white;
-    margin-bottom: 10px;
+    position: relative;
+}
+
+.avatar.online {
+    background-color: #FF7F50;
+}
+
+.avatar.away {
+    background-color: #808080;
+}
+
+.accessory {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .icons {
@@ -237,22 +245,6 @@ textarea {
     border: 1px solid #fc662b;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #FF7F50;
-    border: none;
-    border-radius: 5px;
-    color: rgb(201, 60, 4);
-    cursor: pointer;
-    transition: transform 0.3s ease, margin 0.3s ease;
-}
-
-button:hover {
-    background-color: #FFA07A;
-    color: #333;
-}
-
 .like-button, .thumbs-up-button {
     background: none;
     border: none;
@@ -274,17 +266,46 @@ button:hover {
 }
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.3);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }
 
 .pulse {
     animation: pulse 0.5s ease-in-out;
+}
+
+/* Shop Styles */
+.shop-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.shop-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.shop-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+.user-info {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #e9e9e9;
+    border-radius: 5px;
 }

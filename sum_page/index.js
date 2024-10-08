@@ -2,6 +2,7 @@ let isCameraOn = true;
 let isMicOn = true;
 const likeCounts = {};
 const thumbsUpCounts = {};
+let userLikes = 100; // Starting likes for demonstration
 
 function toggleModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -41,25 +42,16 @@ function submitQuestion() {
     }
 }
 
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.style.display = "none";
-    }
-}
-
 function sendMessage() {
     const messageBox = document.querySelector('.chatbox textarea');
     const message = messageBox.value.trim();
     if (message) {
         const chatMessages = document.querySelector('.chat-messages');
-
         const newMessage = document.createElement('p');
         newMessage.textContent = 'You: ' + message;
         newMessage.classList.add('sent-message', 'bounce-in');
-
         chatMessages.appendChild(newMessage);
         messageBox.value = '';
-
         setTimeout(() => newMessage.classList.remove('bounce-in'), 1000);
     }
 }
@@ -76,6 +68,10 @@ function likeParticipant(participantId) {
     setTimeout(() => {
         likeIcon.classList.remove('pulse');
     }, 500);
+
+    // Increase user's likes (for shop functionality)
+    userLikes++;
+    updateUserLikes();
 }
 
 function thumbUpParticipant(participantId) {
@@ -90,42 +86,114 @@ function thumbUpParticipant(participantId) {
     setTimeout(() => {
         thumbsUpIcon.classList.remove('pulse');
     }, 500);
+
+    // Increase user's likes (for shop functionality)
+    userLikes++;
+    updateUserLikes();
 }
 
-async function connectToSerial() {
-    try {
-        const port = await navigator.serial.requestPort();
-        await port.open({ baudRate: 9600 });
+// Avatar Class
+class Avatar {
+    constructor(username) {
+        this.username = username;
+        this.accessories = [];
+        this.status = 'online';
+    }
 
-        console.log('Connected to Serial Port');
+    addAccessory(accessory) {
+        this.accessories.push(accessory);
+    }
 
-        await readFromSerial(port);
-    } catch (error) {
-        console.error('Connection failed:', error);
+    setStatus(status) {
+        this.status = status;
+    }
+
+    render() {
+        let avatarHTML = `
+            <div class="avatar ${this.status}">
+                <div class="avatar-base">${this.username[0]}</div>
+                ${this.accessories.map(acc => `<div class="accessory ${acc}"></div>`).join('')}
+            </div>
+        `;
+        return avatarHTML;
     }
 }
 
-async function readFromSerial(port) {
-    const decoder = new TextDecoder('utf-8');
-    const reader = port.readable.getReader();
+// Function to detect user presence (this would interact with your external sensor)
+function detectUserPresence() {
+    // This is a mock function. In reality, this would interact with your sensor API
+    return Math.random() < 0.8; // 80% chance the user is present
+}
 
-    try {
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) {
-                break; 
-            }
+// Function to update user status based on presence
+function updateUserStatus(avatar) {
+    const isPresent = detectUserPresence();
+    avatar.setStatus(isPresent ? 'online' : 'away');
+    // Re-render the avatar with the new status
+    document.getElementById(avatar.username).innerHTML = avatar.render();
+}
 
-            const distance = parseInt(decoder.decode(value), 10);
-            console.log('Distance received:', distance);
-       
-            if (distance > 30) {
-                toggleModal('recordModal'); 
-            }
-        }
-    } catch (error) {
-        console.error('Error reading from serial port:', error);
-    } finally {
-        reader.releaseLock();
+// Shop functionality
+const shopItems = [
+    { id: 1, name: "Cool Hat", price: 50, image: "hat.png" },
+    { id: 2, name: "Sunglasses", price: 30, image: "sunglasses.png" },
+    { id: 3, name: "Necklace", price: 40, image: "necklace.png" },
+    // Add more items as needed
+];
+
+function loadShopItems() {
+    const shopContainer = document.getElementById('shopItems');
+    if (shopContainer) {
+        shopContainer.innerHTML = ''; // Clear existing items
+        shopItems.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'shop-item';
+            itemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>${item.price} likes</p>
+                <button onclick="purchaseItem(${item.id})">Purchase</button>
+            `;
+            shopContainer.appendChild(itemElement);
+        });
     }
 }
+
+function purchaseItem(itemId) {
+    const item = shopItems.find(i => i.id === itemId);
+    if (userLikes >= item.price) {
+        userLikes -= item.price;
+        alert(`You've purchased ${item.name}!`);
+        updateUserLikes();
+        // Here you would update the user's inventory and save the changes
+    } else {
+        alert("Not enough likes to purchase this item!");
+    }
+}
+
+function updateUserLikes() {
+    const userLikesElement = document.getElementById('userLikes');
+    if (userLikesElement) {
+        userLikesElement.textContent = userLikes;
+    }
+}
+
+// Initialize when the page loads
+window.onload = function() {
+    // Initialize avatars
+    const user1Avatar = new Avatar('User1');
+    user1Avatar.addAccessory('cool-hat');
+    const user1Element = document.getElementById('User1');
+    if (user1Element) {
+        user1Element.innerHTML = user1Avatar.render();
+    }
+
+    // Update status every 5 seconds
+    setInterval(() => updateUserStatus(user1Avatar), 5000);
+
+    // Load shop items if on shop page
+    loadShopItems();
+
+    // Update user likes display
+    updateUserLikes();
+};
