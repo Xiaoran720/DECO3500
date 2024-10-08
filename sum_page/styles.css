@@ -20,46 +20,44 @@ body {
 }
 
 h3 {
-    text-align: center; /* 设置文本居中 */
-    font-family: 'Georgia', 'Times New Roman', Times, serif; /* 使用柔和的字体 */
-    font-weight: normal; /* 设置字体为正常粗细 */
-    color: #333; /* 设置文字颜色为深灰色 */
+    text-align: center;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+    font-weight: normal;
+    color: #333;
 }
 
-/* The following are the styles and dynamic effects of the message */
 @keyframes bounceIn {
     0% {
-        transform: scale(0.1); /* 初始状态：很小 */
-        opacity: 0; /* 初始透明度 */
+        transform: scale(0.1);
+        opacity: 0;
     }
     60% {
-        transform: scale(1.2); /* 放大至比正常状态稍大 */
-        opacity: 1; /* 完全可见 */
+        transform: scale(1.2);
+        opacity: 1;
     }
     80% {
-        transform: scale(0.95); /* 缩小回接近正常状态 */
+        transform: scale(0.95);
     }
     100% {
-        transform: scale(1); /* 恢复到正常大小 */
+        transform: scale(1);
     }
 }
 
 .bounce-in {
-    animation: bounceIn 0.6s ease-out; /* 应用弹性动画 */
+    animation: bounceIn 0.6s ease-out;
 }
 
 .sent-message {
-    background-color: #FFA07A; /* 发送消息背景颜色 */
+    background-color: #FFA07A;
     color: white;
     padding: 10px;
     border-radius: 10px;
     margin: 5px 0;
     max-width: 80%;
-    align-self: flex-end; /* 靠右对齐 */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
-    transition: transform 0.2s ease-in-out; /* 添加平滑过渡效果 */
+    align-self: flex-end;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
 }
-
 
 .side-menu button {
     padding: 10px;
@@ -73,10 +71,9 @@ h3 {
 }
 
 .side-menu button:hover {
-    transform: scale(1.1); /* 鼠标悬浮时按钮放大 */
-    margin-bottom: 15px; /* 鼠标悬浮时增加底部外边距，将其他按钮向下挤开 */
+    transform: scale(1.1);
+    margin-bottom: 15px;
 }
-
 
 .side-menu button i {
     margin-right: 5px;
@@ -157,7 +154,7 @@ h3 {
 }
 
 .modal-content {
-    background-color: var(--background);
+    background-color: #f9f9f9;
     margin: 10% auto;
     padding: 20px;
     border-radius: 10px;
@@ -200,9 +197,9 @@ textarea {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #fc662b;
-    resize: none; /* 禁用 textarea 的大小调整 */
-    overflow-y: auto; /* 设置为自动滚动，当内容超出时启用垂直滚动条 */
-    box-sizing: border-box; /* 设置 box-sizing 为 border-box */
+    resize: none;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .chatbox {
@@ -212,7 +209,7 @@ textarea {
     padding: 10px;
     border-radius: 10px;
     box-sizing: border-box;
-    margin-top: auto; /* 自动将 .chatbox 推到 .side-menu 的底部 */
+    margin-top: auto;
 }
 
 .chat-container {
@@ -221,7 +218,6 @@ textarea {
     align-items: flex-start;
 }
 
-/* chat-messages 样式 */
 .chat-messages {
     background-color: white;
     height: 100px;
@@ -229,23 +225,22 @@ textarea {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    border: 1px solid var(--secondary);
+    border: 1px solid #fc662b;
 }
 
-/* chatbox 内部元素样式 */
 .chatbox textarea {
     width: 100%;
     height: 50px;
     margin-bottom: 10px;
     padding: 5px;
     border-radius: 5px;
-    border: 1px solid var(--secondary);
+    border: 1px solid #fc662b;
 }
 
 button {
-    width: 100%; /* 设置按钮宽度 */
+    width: 100%;
     padding: 10px;
-    background-color: var(--primary);
+    background-color: #FF7F50;
     border: none;
     border-radius: 5px;
     color: rgb(201, 60, 4);
@@ -254,35 +249,42 @@ button {
 }
 
 button:hover {
-    background-color: #FFA07A; /* 设置鼠标悬浮时的浅橙色 */
+    background-color: #FFA07A;
     color: #333;
 }
 
+.like-button, .thumbs-up-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: transform 0.3s ease;
+}
 
-@keyframes fly-like {
+.like-button:hover, .thumbs-up-button:hover {
+    transform: scale(1.2);
+}
+
+.like-count, .thumbs-up-count {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+@keyframes pulse {
     0% {
-        transform: scale(0.5) translate(0, 0);
-        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
     }
     100% {
-        transform: scale(1.5) translate(300px, -100px); /* 你可以调整这个值，使其飞向头像 */
-        opacity: 0;
+        transform: scale(1);
     }
 }
 
-.fly-animation {
-    position: absolute;
-    animation: fly-like 1s ease forwards;
-    pointer-events: none; /* 防止点击干扰动画 */
-}
-
-
-.start-box {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: red;
-    bottom: 20px; /* 定位在页面底部，调整位置 */
-    right: 50px; /* 根据页面需要调整右侧位置 */
-    border: 2px solid #000;
+.pulse {
+    animation: pulse 0.5s ease-in-out;
 }

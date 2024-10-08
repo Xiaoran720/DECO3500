@@ -1,5 +1,7 @@
 let isCameraOn = true;
 let isMicOn = true;
+const likeCounts = {};
+const thumbsUpCounts = {};
 
 function toggleModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -51,75 +53,43 @@ function sendMessage() {
     if (message) {
         const chatMessages = document.querySelector('.chat-messages');
 
-        // 创建新消息元素，并为其添加类名 sent-message
         const newMessage = document.createElement('p');
         newMessage.textContent = 'You: ' + message;
-        newMessage.classList.add('sent-message', 'bounce-in'); // 发送消息添加 sent-message 类名和动画类名
+        newMessage.classList.add('sent-message', 'bounce-in');
 
         chatMessages.appendChild(newMessage);
         messageBox.value = '';
 
-        // 移除动画类名以便于下次生成消息时重新播放动画
         setTimeout(() => newMessage.classList.remove('bounce-in'), 1000);
     }
 }
 
-
-function flyIcon(icon, toElement) {
-    const flyIcon = document.createElement('div');
-    flyIcon.innerHTML = icon;
-    flyIcon.classList.add('fly-animation');
-
-    // 获取红色框的位置（出发点）
-    const fromElement = document.getElementById('startBox');
-    const fromRect = fromElement.getBoundingClientRect();
-
-    // 获取目标头像框的位置（终点）
-    const toRect = toElement.getBoundingClientRect();
-
-    // 输出起点和终点的坐标进行调试
-    console.log('From:', fromRect.left, fromRect.top); // 输出出发点位置
-    console.log('To:', toRect.left, toRect.top); // 输出目标头像框位置
-
-    // 设置初始位置，并考虑滚动偏移（出发点）
-    flyIcon.style.position = 'absolute';
-    flyIcon.style.left = `${fromRect.left + window.scrollX}px`;
-    flyIcon.style.top = `${fromRect.top + window.scrollY}px`;
-    document.body.appendChild(flyIcon);
-
-    // 计算目标头像框的中心位置
-    const targetX = toRect.left + toRect.width / 2 + window.scrollX;
-    const targetY = toRect.top + toRect.height / 2 + window.scrollY;
-
-    // 计算 x 和 y 轴的偏移量
-    const deltaX = targetX - (fromRect.left + window.scrollX);
-    const deltaY = targetY - (fromRect.top + window.scrollY);
-
-    // 输出偏移量进行调试
-    console.log('DeltaX:', deltaX, 'DeltaY:', deltaY);
-
-    // 应用 transform 来设置飞行路径
-    flyIcon.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-
-    // 移除动画元素
+function likeParticipant(participantId) {
+    const likeButton = document.querySelector(`#${participantId} .like-button`);
+    const likeIcon = likeButton.querySelector('.like-icon');
+    const likeCount = likeButton.querySelector('.like-count');
+    
+    likeCounts[participantId] = (likeCounts[participantId] || 0) + 1;
+    likeCount.textContent = likeCounts[participantId];
+    
+    likeIcon.classList.add('pulse');
     setTimeout(() => {
-        flyIcon.remove();
-    }, 1000); // 动画持续时间
+        likeIcon.classList.remove('pulse');
+    }, 500);
 }
 
-
-
-
-// Like 按钮点击事件
-function likeParticipant(fromElement, toParticipantId) {
-    const toElement = document.getElementById(toParticipantId); // 假设头像框有ID
-    flyIcon('❤️', fromElement, toElement); // 飞行爱心
-}
-
-// 点赞按钮点击事件
-function thumbUpParticipant(fromElement, toParticipantId) {
-    const toElement = document.getElementById(toParticipantId); // 假设头像框有ID
-    flyIcon('👍', fromElement, toElement); // 飞行点赞图标
+function thumbUpParticipant(participantId) {
+    const thumbsUpButton = document.querySelector(`#${participantId} .thumbs-up-button`);
+    const thumbsUpIcon = thumbsUpButton.querySelector('.thumbs-up-icon');
+    const thumbsUpCount = thumbsUpButton.querySelector('.thumbs-up-count');
+    
+    thumbsUpCounts[participantId] = (thumbsUpCounts[participantId] || 0) + 1;
+    thumbsUpCount.textContent = thumbsUpCounts[participantId];
+    
+    thumbsUpIcon.classList.add('pulse');
+    setTimeout(() => {
+        thumbsUpIcon.classList.remove('pulse');
+    }, 500);
 }
 
 async function connectToSerial() {
@@ -159,4 +129,3 @@ async function readFromSerial(port) {
         reader.releaseLock();
     }
 }
-
