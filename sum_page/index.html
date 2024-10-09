@@ -159,6 +159,18 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <h2>Leave Mode Activated</h2>
             <p>You are now in Leave Mode. Click anywhere outside this window to exit Leave Mode.</p>
+    
+            <!-- 新增的内容框 -->
+            <div id="meetingContent" style="border: 1px solid #ccc; margin-top: 20px; padding: 10px;">
+                <h3 style="text-align: center;">What You Have Missed</h3>
+                <div style="max-height: 150px; overflow-y: auto; padding: 10px; background-color: #f9f9f9;">
+                    <p><strong>Alice:</strong> We have discussed the project timeline and agreed to finalize the design by next week.</p>
+                    <p><strong>Bob:</strong> I suggested adding an additional meeting on Wednesday to review the initial sketches.</p>
+                    <p><strong>Charlie:</strong> We also need to consider the budget for the new features. I will share a draft later today.</p>
+                    <p><strong>David:</strong> Make sure to update the task list based on today's discussion. Let's keep in touch via Slack.</p>
+                    <p><strong>Eve:</strong> I will work on the initial wireframes and share them by tomorrow evening.</p>
+                </div>
+            </div>
         </div>
     </div>
     
