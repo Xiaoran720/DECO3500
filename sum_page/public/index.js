@@ -193,6 +193,7 @@ function enterLeaveMode() {
 
 function exitLeaveMode() {
     toggleModal('leaveModeModal');
+    closeLeaveModeModal(); 
 }
 
 function toggleModal(modalId) {
@@ -203,4 +204,58 @@ function toggleModal(modalId) {
         modal.style.display = "block";
     }
 }
+
+//Ultra sonic sensor:
+
+let port;  
+let isModalOpen = false; 
+
+async function connectToSerial() {
+    try {
+        const port = await navigator.serial.requestPort();
+        await port.open({ baudRate: 9600 });
+
+        console.log('Connected to Serial Port');
+
+        await readFromSerial(port);
+    } catch (error) {
+        console.error('Connection failed:', error);
+    }
+}
+
+async function readFromSerial(port) {
+    const decoder = new TextDecoder('utf-8');
+    const reader = port.readable.getReader();
+
+    try {
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) {
+                break;
+            }
+
+            const distance = parseInt(decoder.decode(value), 10);
+            console.log('Distance received:', distance);
+       
+            
+            if (distance > 30 && !isModalOpen) {
+                openLeaveModeModal(); 
+            }
+        }
+    } catch (error) {
+        console.error('Error reading from serial port:', error);
+    } finally {
+        reader.releaseLock();
+    }
+}
+
+function openLeaveModeModal() {
+    toggleModal('leaveModeModal');
+    isModalOpen = true; 
+}
+
+function closeLeaveModeModal() {
+    isModalOpen = false; 
+}
+
 
