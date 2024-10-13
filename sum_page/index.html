@@ -160,16 +160,15 @@
     
             <div class="chatbox">
                 <h3>Chat</h3>
-                <div class="chat-messages" style="border: 1px solid #ccc; margin-top: 20px; padding: 10px; max-height: 200px; overflow-y: auto; background-color: #f9f9f9;">
+                <div class="chat-messages" id="leave-mode-messages" style="border: 1px solid #ccc; margin-top: 20px; padding: 10px; max-height: 200px; overflow-y: auto; background-color: #f9f9f9;">
                 </div>
-                <textarea placeholder="Type your message..." style="width: 100%; margin-top: 10px;"></textarea>
-                <button onclick="sendMessage()" style="margin-top: 10px;">Send</button>
             </div>
         </div>
     </div>
     
     
-    <!-- Firebase + Chat JS Script -->
+    
+    <!-- Followings are Firebase + Chat JS Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
         import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
@@ -199,18 +198,25 @@
         }
       
         function listenForMessages() {
-          onValue(messagesRef, (snapshot) => {
-            const messages = snapshot.val();
-            const chatMessagesContainer = document.querySelector('.chat-messages');
-            chatMessagesContainer.innerHTML = '';
-            for (let id in messages) {
-              const msg = messages[id];
-              const messageElement = document.createElement('p');
-              messageElement.textContent = `${msg.username}: ${msg.message}`;
-              chatMessagesContainer.appendChild(messageElement);
-            }
-          });
+    onValue(messagesRef, (snapshot) => {
+        const messages = snapshot.val();
+        const chatMessagesContainer = document.querySelector('.chat-messages');
+        const leaveModeMessagesContainer = document.getElementById('leave-mode-messages');
+        
+        chatMessagesContainer.innerHTML = '';
+        leaveModeMessagesContainer.innerHTML = '';
+        
+        for (let id in messages) {
+            const msg = messages[id];
+            const messageElement = document.createElement('p');
+            messageElement.textContent = `${msg.username}: ${msg.message}`;
+            
+            chatMessagesContainer.appendChild(messageElement);
+            leaveModeMessagesContainer.appendChild(messageElement.cloneNode(true));
         }
+    });
+}
+
       
         listenForMessages();
       
@@ -224,7 +230,9 @@
 
         messageBox.value = '';
     }
-};
+    };
+
+    
     </script>
       
     <script src="index.js"></script>  
