@@ -42,19 +42,6 @@ function submitQuestion() {
     }
 }
 
-function sendMessage() {
-    const messageBox = document.querySelector('.chatbox textarea');
-    const message = messageBox.value.trim();
-    if (message) {
-        const chatMessages = document.querySelector('.chat-messages');
-        const newMessage = document.createElement('p');
-        newMessage.textContent = 'You: ' + message;
-        newMessage.classList.add('sent-message', 'bounce-in');
-        chatMessages.appendChild(newMessage);
-        messageBox.value = '';
-        setTimeout(() => newMessage.classList.remove('bounce-in'), 1000);
-    }
-}
 
 function likeParticipant(participantId) {
     const likeButton = document.querySelector(`#${participantId} .like-button`);
