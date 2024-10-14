@@ -238,7 +238,7 @@ async function readFromSerial(port) {
             console.log('Distance received:', distance);
        
             
-            if (distance > 30 && !isModalOpen) {
+            if (distance > 70 && !isModalOpen) {
                 openLeaveModeModal(); 
             }
         }
